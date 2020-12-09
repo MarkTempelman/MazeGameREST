@@ -2,10 +2,9 @@ package nl.fhict.mazegamerest.controllers;
 
 import nl.fhict.mazegamerest.models.User;
 import nl.fhict.mazegamerest.services.UserService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -17,8 +16,13 @@ public class UserController {
         this.service = service;
     }
 
-    @PostMapping("/user")
+    @PostMapping("/all/user")
     public void registerUser(@RequestBody User user){
         service.save(user);
+    }
+
+    @GetMapping("/member/user")
+    public List<User> getAllUsers(){
+        return service.getAllUsers();
     }
 }
