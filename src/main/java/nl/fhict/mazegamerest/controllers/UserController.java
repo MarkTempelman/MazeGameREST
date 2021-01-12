@@ -2,7 +2,9 @@ package nl.fhict.mazegamerest.controllers;
 
 import nl.fhict.mazegamerest.models.User;
 import nl.fhict.mazegamerest.services.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -23,7 +25,9 @@ public class UserController {
 
     @GetMapping("/member/current")
     public User getCurrentUser(){
-        return userService.getCurrentUser();
+        User user = userService.getCurrentUser();
+        if(user == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "user not found");
+        else return user;
     }
 
     @GetMapping("/member/user")
